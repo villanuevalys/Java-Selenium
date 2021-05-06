@@ -17,16 +17,28 @@ public class Base {
     }
 
     public static void clickElementBy(By by){
-        wait = new WebDriverWait(webDriver,waitTime);
+        wait = waitElement();
         wait.until(ExpectedConditions.elementToBeClickable(webDriver.findElement(by)));
         webDriver.findElement(by).click();
     }
 
     public static void sendKeysBy(By by,String str){
-        wait = new WebDriverWait(webDriver,waitTime);
+        wait = waitElement();
         wait.until(ExpectedConditions.visibilityOf(webDriver.findElement(by)));
         webDriver.findElement(by).sendKeys(str);
     }
+
+    public static String getText(By by){
+        wait = waitElement();
+        wait.until(ExpectedConditions.visibilityOf(webDriver.findElement(by)));
+        return webDriver.findElement(by).getText();
+    }
+    public static WebDriverWait waitElement(){
+        wait = new WebDriverWait(webDriver,waitTime);
+        return wait;
+    }
+
+
 
     public static void goTo(String url){
         webDriver.get(url);

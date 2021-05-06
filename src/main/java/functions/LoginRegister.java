@@ -1,6 +1,7 @@
 package functions;
 
 import org.openqa.selenium.WebDriver;
+import pages.LoginRegisterPage;
 
 public class LoginRegister extends Base{
 
@@ -9,14 +10,17 @@ public class LoginRegister extends Base{
     }
 
     public static void setUsername(String username){
-        sendKeysBy(pages.LoginRegister.usernameField,username);
+
+        sendKeysBy(LoginRegisterPage.usernameField,username);
     }
     public static void setPassword(String password){
-        sendKeysBy(pages.LoginRegister.passwordField,password);
+
+        sendKeysBy(LoginRegisterPage.passwordField,password);
     }
 
     public static void clickSave(){
-        clickElementBy(pages.LoginRegister.saveButton);
+
+        clickElementBy(LoginRegisterPage.saveButton);
     }
 
     public static void login(String username,String password){
@@ -29,5 +33,9 @@ public class LoginRegister extends Base{
         setUsername(username);
         setPassword(password);
         clickSave();
+    }
+
+    public static String loginMessage(){
+        return getText(LoginRegisterPage.loginMessage);
     }
 }
