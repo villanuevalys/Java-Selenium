@@ -1,22 +1,23 @@
 package utils.extentreport;
 
-import com.relevantcodes.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.reporter.ExtentReporter;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import constants.DirectoryConstants;
+
 
 public class ExtentManager {
 
     private static ExtentReports extent;
 
-    public synchronized static ExtentReports getReporter() {
-        if (extent == null) {
-            //Set HTML reporting file location
-            String workingDir = System.getProperty("user.dir");
-            if (System.getProperty("os.name").toLowerCase().contains("win")) {
-                extent = new ExtentReports(workingDir + "\\ExtentReports\\ExtentReportResults.html", true);
-            }
-            else if (System.getProperty("os.name").toLowerCase().contains("mac")) {
-                extent = new ExtentReports(workingDir + "/ExtentReports/ExtentReportResults.html", true);
-            }
-        }
+    public static ExtentReports getReporter() {
+
+        //Set HTML reporting file location
+        String path = DirectoryConstants.USER_DIRECTORY + DirectoryConstants.REPORTS_DIRECTORY + "ExtentReport.html";
+        ExtentSparkReporter spark = new ExtentSparkReporter(path);
+
+        extent = new ExtentReports();
+        extent.attachReporter(spark);
         return extent;
     }
 }
