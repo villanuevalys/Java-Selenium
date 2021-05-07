@@ -1,5 +1,7 @@
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
 import constants.BrowserConstants;
-import functions.Base;
+import functions.Common;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
@@ -11,13 +13,14 @@ public class BaseTest {
     public WebDriver webDriver;
     public String actualResult,expectedResult;
 
+
     @BeforeClass
-    public void init(){
+    public void setUp(){
         webDriver = WebDriverFactory.getInstance(BrowserConstants.CHROME);
-        webDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         webDriver.manage().window().maximize();
         webDriver.get("http://thedemosite.co.uk");
-        Base.webDriver = webDriver;
+       // Common.webDriver = webDriver;
+
     }
 
 
