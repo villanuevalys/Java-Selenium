@@ -3,6 +3,7 @@ package utils.common;
 import constants.DirectoryConstants;
 import functions.Base;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -34,7 +35,7 @@ public class Screenshot {
             e.printStackTrace();
         }
 
-        return destination;
+        return file.getName();
 
     }
 }

@@ -9,16 +9,17 @@ import java.util.Map;
 
 public class ExtentTestManager {
 
-    static Map extentTestMap = new HashMap();
-    static ExtentReports extent = ExtentManager.getReporter();
 
-    public static ExtentTest getTest() {
-        return (ExtentTest) extentTestMap.get((int) (long) (Thread.currentThread().getId()));
+    static ExtentReports extentReports = ExtentReportManager.getReporter();
+    static ExtentTest extentTest ;
+
+
+    public static ExtentTest startTest(String testName) {
+        extentTest = extentReports.createTest(testName);
+        return extentTest;
     }
 
-    public static ExtentTest startTest(String testName, String desc) {
-        ExtentTest test = extent.createTest(testName, desc);
-        extentTestMap.put((int) (long) (Thread.currentThread().getId()), test);
-        return test;
-    }
+
+
+
 }

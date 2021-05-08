@@ -1,14 +1,18 @@
 package utils.extentreport;
 
 import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentReporter;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import constants.DirectoryConstants;
+import org.testng.ITestResult;
+import org.testng.internal.TestResult;
 
 
-public class ExtentManager {
+public class ExtentReportManager {
 
     private static ExtentReports extent;
+    private static ExtentTest test;
 
     public static ExtentReports getReporter() {
 

@@ -1,40 +1,42 @@
 package utils.listeners;
 
-
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
-import functions.Base;
-import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
-import test.BaseTest;
+import utils.common.Log;
 import utils.common.Screenshot;
-import utils.extentreport.ExtentManager;
+import utils.extentreport.ExtentReportManager;
 
-import java.io.IOException;
 
 public class TestListener implements ITestListener {
 
-    ExtentReports extentReports = ExtentManager.getReporter();
+    ExtentReports extentReports = ExtentReportManager.getReporter();
     ExtentTest extentTest ;
 
 
     @Override
     public void onTestStart(ITestResult iTestResult) {
-        extentTest = extentReports.createTest(iTestResult.getMethod().getMethodName());
+      extentTest = extentReports.createTest(iTestResult.getMethod().getMethodName());
+      Log.startLog(iTestResult.getMethod().getMethodName());
     }
 
     @Override
     public void onTestSuccess(ITestResult iTestResult) {
         extentTest.log(Status.PASS,iTestResult.getTestName());
+        extentTest.log(Status.INFO,"See Full logs:");
+        Log.endLog(iTestResult.getMethod().getMethodName());
     }
 
     @Override
     public void onTestFailure(ITestResult iTestResult) {
-        extentTest.log(Status.FAIL,iTestResult.getThrowable());
-        extentTest.addScreenCaptureFromPath(Screenshot.takeScreenShot("Fail"));
+        extentTest.log(Status.FAIL,iTestResult.getThrowable(),
+                MediaEntityBuilder.createScreenCaptureFromPath(Screenshot.takeScreenShot(iTestResult.getMethod().getMethodName())).build());
+        extentTest.log(Status.INFO,"See Full logs:");
+        Log.startLog(iTestResult.getMethod().getMethodName());
     }
 
     @Override
@@ -56,5 +58,6 @@ public class TestListener implements ITestListener {
     public void onFinish(ITestContext iTestContext) {
         extentReports.flush();
     }
+
 
 }
