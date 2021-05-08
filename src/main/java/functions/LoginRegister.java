@@ -2,7 +2,6 @@ package functions;
 
 import org.openqa.selenium.WebDriver;
 import pages.LoginRegisterPage;
-import utils.common.Screenshot;
 
 public class LoginRegister extends Base{
 

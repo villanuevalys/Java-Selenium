@@ -1,14 +1,11 @@
 package test;
 
-import constants.BrowserConstants;
 import functions.Base;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import utils.common.Screenshot;
-import utils.common.WebDriverFactory;
+import utils.Initialize;
 
 public class BaseTest {
     public WebDriver webDriver;
@@ -16,16 +13,11 @@ public class BaseTest {
     public Base common ;
 
 
-
-    public WebDriver getDriver() {
-        return webDriver;
-    }
-
     @BeforeClass
     public void setUp(){
-        webDriver = WebDriverFactory.getInstance(BrowserConstants.CHROME);
-        webDriver.manage().window().maximize();
-        webDriver.get("http://thedemosite.co.uk");
+        Initialize init = new Initialize();
+        webDriver = init.loadWebDriver();
+        init.configureLog4j();
     }
 
     @BeforeMethod

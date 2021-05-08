@@ -1,4 +1,4 @@
-package utils.common;
+package utils.core;
 
 import constants.BrowserConstants;
 import io.github.bonigarcia.wdm.managers.ChromeDriverManager;
