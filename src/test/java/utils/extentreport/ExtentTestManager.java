@@ -10,14 +10,14 @@ import java.util.Map;
 public class ExtentTestManager {
 
 
-    static ExtentReports extentReports = ExtentReportManager.getReporter();
-    static ExtentTest extentTest ;
-
-
-    public static ExtentTest startTest(String testName) {
-        extentTest = extentReports.createTest(testName);
-        return extentTest;
-    }
+//    static ExtentReports extentReports = ExtentReportManager.getReporter();
+//    static ExtentTest extentTest ;
+//
+//
+//    public static ExtentTest startTest(String testName) {
+//        extentTest = extentReports.createTest(testName);
+//        return extentTest;
+//    }
 
 
 

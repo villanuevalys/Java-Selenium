@@ -21,10 +21,10 @@ public class Screenshot {
         Screenshot.webDriver = webDriver;
     }
 
-    public static String takeScreenShot(String name) {
+    public static String takeScreenShot(String name)  {
        TakesScreenshot ts = (TakesScreenshot)webDriver;
        File source = ts.getScreenshotAs(OutputType.FILE);
-       String destination = DirectoryConstants.USER_DIRECTORY + DirectoryConstants.REPORTS_DIRECTORY + name + ".png";
+       String destination = Initialize.getReportsDirectory() + name + ".png";
        File file = new File(destination);
 
         try {

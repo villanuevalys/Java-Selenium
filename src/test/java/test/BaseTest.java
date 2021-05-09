@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import utils.Initialize;
+import utils.core.Initialize;
 
 public class BaseTest {
     public WebDriver webDriver;
@@ -15,9 +15,7 @@ public class BaseTest {
 
     @BeforeClass
     public void setUp(){
-        Initialize init = new Initialize();
-        webDriver = init.loadWebDriver();
-        init.configureLog4j();
+        webDriver = Initialize.loadWebDriver();
     }
 
     @BeforeMethod

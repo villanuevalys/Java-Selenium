@@ -4,26 +4,27 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
+import constants.DirectoryConstants;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+import utils.core.Initialize;
 import utils.core.Log;
 import utils.core.Screenshot;
 import utils.extentreport.ExtentReportManager;
 
+import java.io.IOException;
+
 
 public class TestListener implements ITestListener {
 
-    ExtentReports extentReports = ExtentReportManager.getReporter();
-    ExtentTest extentTest ;
-
+    ExtentReports extentReports;
+    ExtentTest extentTest;
 
     @Override
     public void onTestStart(ITestResult iTestResult) {
         extentTest = extentReports.createTest(iTestResult.getMethod().getMethodName());
         Log.info("Test Start : " + iTestResult.getMethod().getMethodName());
-
-
     }
 
     @Override
@@ -58,6 +59,9 @@ public class TestListener implements ITestListener {
     @Override
     public void onStart(ITestContext iTestContext) {
 
+        Initialize.createReportsDirectory(iTestContext.getCurrentXmlTest().getName());
+        Initialize.configureLog4j();
+        this.extentReports = ExtentReportManager.getReporter();
     }
 
     @Override
@@ -69,7 +73,8 @@ public class TestListener implements ITestListener {
         Log.info( "Passed: " + iTestContext.getPassedTests().size());
         Log.info( "Failed: " + iTestContext.getFailedTests().size());
         Log.info( "Skipped: " + iTestContext.getSkippedTests().size());
-        Log.info("See Full Logs:" + "E:\\Java-Selenium\\ExtentReports\\reports.log" );
+        Log.info("See Full Logs: " + Initialize.getReportsDirectory() + DirectoryConstants.LOG4j_FILENAME);
+        Log.printLines();
     }
 
 
