@@ -24,7 +24,7 @@ public class Screenshot {
     public static String takeScreenShot(String name)  {
        TakesScreenshot ts = (TakesScreenshot)webDriver;
        File source = ts.getScreenshotAs(OutputType.FILE);
-       String destination = Initialize.getReportsDirectory() + name + ".png";
+       String destination = Initialize.getReportsDirectory() + DirectoryConstants.SCREENSHOT_DIRECTORY +  name +  ".png";
        File file = new File(destination);
 
         try {
@@ -33,7 +33,7 @@ public class Screenshot {
             e.printStackTrace();
         }
 
-        return file.getName();
+        return DirectoryConstants.SCREENSHOT_DIRECTORY + file.getName();
 
     }
 }

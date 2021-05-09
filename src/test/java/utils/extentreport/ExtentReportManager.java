@@ -14,7 +14,7 @@ public class ExtentReportManager {
     private static ExtentTest test;
     private static String dir;
 
-    public static ExtentReports getReporter(){
+    public synchronized static ExtentReports getReporter(){
 
         //Set HTML reporting file location
         dir =  Initialize.getReportsDirectory() + "reports.html";

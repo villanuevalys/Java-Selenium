@@ -12,6 +12,7 @@ import utils.core.Initialize;
 import utils.core.Log;
 import utils.core.Screenshot;
 import utils.extentreport.ExtentReportManager;
+import utils.extentreport.ExtentTestManager;
 
 import java.io.IOException;
 
@@ -19,6 +20,7 @@ import java.io.IOException;
 public class TestListener implements ITestListener {
 
     ExtentReports extentReports;
+    private static ThreadLocal<ExtentTest> extentTests = new ThreadLocal<ExtentTest>();
     ExtentTest extentTest;
 
     @Override
@@ -61,7 +63,7 @@ public class TestListener implements ITestListener {
 
         Initialize.createReportsDirectory(iTestContext.getCurrentXmlTest().getName());
         Initialize.configureLog4j();
-        this.extentReports = ExtentReportManager.getReporter();
+        extentReports = ExtentReportManager.getReporter();
     }
 
     @Override
