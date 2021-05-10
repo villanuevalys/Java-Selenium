@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.core.Screenshot;
 
 public class Base{
-    public  WebDriver webDriver;
+    public WebDriver webDriver;
     public WebDriverWait wait;
     int waitTime = 30;
 

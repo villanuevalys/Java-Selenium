@@ -1,7 +1,9 @@
 package test;
 
 
+import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
 import functions.LoginRegister;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -17,16 +19,16 @@ public class SampleTest extends BaseTest{
 
     LoginRegister loginRegister;
 
+
     @BeforeMethod
     public void preconditions(){
         loginRegister  = new LoginRegister(webDriver);
     }
 
     @Test
-    public void addUserTest(Method method) {
+    public void addUserTest() {
         common.goTo("http://thedemosite.co.uk/addauser.php");
         loginRegister.addUser(username, password);
-        ExtentReportManager.getReporter().flush();
     }
 
     @Test

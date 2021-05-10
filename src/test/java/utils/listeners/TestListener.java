@@ -19,27 +19,28 @@ import java.io.IOException;
 
 public class TestListener implements ITestListener {
 
-    ExtentReports extentReports;
-    private static ThreadLocal<ExtentTest> extentTests = new ThreadLocal<ExtentTest>();
-    ExtentTest extentTest;
 
     @Override
     public void onTestStart(ITestResult iTestResult) {
-        extentTest = extentReports.createTest(iTestResult.getMethod().getMethodName());
+        ExtentTestManager.createTest(iTestResult.getMethod().getMethodName());
+        ExtentTestManager.getExtentTest().log(Status.INFO,"Start Test");
         Log.info("Test Start : " + iTestResult.getMethod().getMethodName());
     }
 
     @Override
     public void onTestSuccess(ITestResult iTestResult) {
-        extentTest.log(Status.PASS,iTestResult.getTestName());
+        ExtentTestManager.getExtentTest().log(Status.PASS,iTestResult.getTestName());
+        ExtentTestManager.getExtentTest().log(Status.INFO,"End Test");
+
         Log.info("Test Passed : " + iTestResult.getMethod().getMethodName());
         Log.printLines();
     }
 
     @Override
     public void onTestFailure(ITestResult iTestResult) {
-        extentTest.log(Status.FAIL,iTestResult.getThrowable(),
-                MediaEntityBuilder.createScreenCaptureFromPath(Screenshot.takeScreenShot(iTestResult.getMethod().getMethodName())).build());
+        ExtentTestManager.takeScreenshot(Status.FAIL,iTestResult.getMethod().getMethodName());
+        ExtentTestManager.getExtentTest().log(Status.INFO,"End Test");
+
         Log.error("Test Failed : " + iTestResult.getMethod().getMethodName());
         Log.error(iTestResult.getThrowable().getMessage());
         Log.printLines();
@@ -47,7 +48,9 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestSkipped(ITestResult iTestResult) {
-        extentTest.log(Status.SKIP,iTestResult.getThrowable());
+        ExtentTestManager.getExtentTest().log(Status.SKIP,iTestResult.getThrowable());
+        ExtentTestManager.getExtentTest().log(Status.INFO,"End Test");
+
         Log.info("Test Skipped : " + iTestResult.getMethod().getMethodName());
         Log.warn(iTestResult.getThrowable().getMessage());
         Log.printLines();
@@ -55,20 +58,18 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestFailedButWithinSuccessPercentage(ITestResult iTestResult) {
-
     }
 
     @Override
     public void onStart(ITestContext iTestContext) {
-
         Initialize.createReportsDirectory(iTestContext.getCurrentXmlTest().getName());
         Initialize.configureLog4j();
-        extentReports = ExtentReportManager.getReporter();
+        ExtentTestManager.setExtentReports(ExtentReportManager.getReporter());
     }
 
     @Override
     public void onFinish(ITestContext iTestContext) {
-        extentReports.flush();
+        ExtentTestManager.getExtentReports().flush();
 
         Log.printLines();
         Log.info( "Total Test: " + iTestContext.getAllTestMethods().length);

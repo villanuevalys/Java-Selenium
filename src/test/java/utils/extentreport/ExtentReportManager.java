@@ -10,20 +10,21 @@ import java.io.IOException;
 
 public class ExtentReportManager {
 
-    private static ExtentReports extent;
+    private static ExtentReports extentReports;
     private static ExtentTest test;
     private static String dir;
 
-    public synchronized static ExtentReports getReporter(){
+    public static synchronized  ExtentReports getReporter(){
 
         //Set HTML reporting file location
         dir =  Initialize.getReportsDirectory() + "reports.html";
 
         ExtentSparkReporter spark = new ExtentSparkReporter(dir);
 
-        extent = new ExtentReports();
-        extent.attachReporter(spark);
-        return extent;
+
+        extentReports = new ExtentReports();
+        extentReports.attachReporter(spark);
+        return extentReports;
     }
 
 

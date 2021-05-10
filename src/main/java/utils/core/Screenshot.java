@@ -1,6 +1,7 @@
 package utils.core;
 
 import constants.DirectoryConstants;
+import functions.Base;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -9,8 +10,12 @@ import org.openqa.selenium.WebDriver;
 import java.io.File;
 import java.io.IOException;
 
-public class Screenshot {
+public class Screenshot extends Base {
     public static WebDriver webDriver;
+
+    public Screenshot(WebDriver webDriver) {
+        super(webDriver);
+    }
 
 
     public static WebDriver getWebDriver() {
